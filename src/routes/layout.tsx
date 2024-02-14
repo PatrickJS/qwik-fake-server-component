@@ -1,5 +1,5 @@
-import { component$, Slot, useStyles$ } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { component$, Slot, $, useStyles$ } from "@builder.io/qwik";
+import { routeLoader$, useLocation } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import styles from "./styles.css?inline";
@@ -23,11 +23,42 @@ export const useServerTimeLoader = routeLoader$(() => {
 
 export default component$(() => {
   useStyles$(styles);
+  const loc = useLocation();
+  const onClick = $(async (e: Event, a: HTMLAnchorElement) => {
+    const html = await fetch(a.href).then((res) => res.text());
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    document.body!.innerHTML = doc.body!.innerHTML;
+    history.pushState(null, "", a.href);
+  });
+
   return (
-    <>
-      <main>
+    <div>
+      <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+        <li style="float: left;">
+          <a
+            href="/"
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+            preventdefault:click
+            onClick$={onClick}
+          >
+            {loc.url.pathname === "/" ? "[Home]" : "Home"}
+          </a>
+        </li>
+        <li style="float: left;">
+          <a
+            href="/about/"
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+            preventdefault:click
+            onClick$={onClick}
+          >
+            {/about/.test(loc.url.pathname) ? "[About]" : "About"}
+          </a>
+        </li>
+      </ul>
+      <main style={{ padding: "1rem" }}>
         <Slot />
       </main>
-    </>
+    </div>
   );
 });
