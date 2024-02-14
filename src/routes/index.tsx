@@ -10,7 +10,7 @@ export function serverComponentQrl(qrl: () => Promise<JSXOutput>) {
 }
 export const serverComponent$ = serverComponentQrl;
 
-export default serverComponent$(async function testFn() {
+export default serverComponent$(async () => {
   const filename = new URL(import.meta.url).pathname;
   let file = await fs.readFile(filename, "utf-8");
 
