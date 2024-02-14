@@ -1,5 +1,9 @@
 import { component$, Slot, $, useStyles$ } from "@builder.io/qwik";
-import { routeLoader$, useLocation } from "@builder.io/qwik-city";
+import {
+  // Link,
+  routeLoader$,
+  useLocation,
+} from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import styles from "./styles.css?inline";
@@ -53,6 +57,27 @@ export default component$(() => {
             onClick$={onClick}
           >
             {/about/.test(loc.url.pathname) ? "[About]" : "About"}
+          </a>
+        </li>
+
+        <li style="float: left;">
+          <a
+            href="/server-component/"
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+          >
+            {/server-component\/$/.test(loc.url.pathname)
+              ? "[server-component]"
+              : "server-component"}
+          </a>
+        </li>
+        <li style="float: left;">
+          <a
+            href="/server-component-again/"
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+          >
+            {/server-component-again/.test(loc.url.pathname)
+              ? "[server-component-again]"
+              : "server-component-again"}
           </a>
         </li>
       </ul>
