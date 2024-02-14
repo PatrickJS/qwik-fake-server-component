@@ -1,5 +1,4 @@
 import { JSXOutput, componentQrl } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
 
 import { promises as fs } from "node:fs";
 
@@ -18,15 +17,8 @@ export default serverComponent$(async () => {
     <div id="home">
       <h1>Welcome to Qwik</h1>
       <button
-        onClick$={async () => {
-          // client router get latest from server router
-          // location.reload();
-
-          const html = await fetch(location.href).then((res) => res.text());
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          document.querySelector("#home")!.innerHTML =
-            doc.querySelector("#home")!.innerHTML;
+        onClick$={() => {
+          location.reload();
         }}
       >
         update
@@ -36,13 +28,3 @@ export default serverComponent$(async () => {
     </div>
   );
 });
-
-export const head: DocumentHead = {
-  title: "Welcome to Qwik",
-  meta: [
-    {
-      name: "description",
-      content: "Qwik site description",
-    },
-  ],
-};
