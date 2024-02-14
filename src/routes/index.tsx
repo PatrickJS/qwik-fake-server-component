@@ -1,19 +1,25 @@
 import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import { DocumentHead, server$ } from '@builder.io/qwik-city';
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
+// export const getFile = server$(async () => {
+//   console.log('path', _path)
+//   return file;
+// });
+
 export default component$(() => {
   const val = useSignal('');
-  useTask$(async () => {
-    const file = await server$(() =>
-      fs.readFileSync(path.join(__dirname, __filename), 'utf-8')
-    );
-    const data = await file();
-    console.log(data);
-    val.value = data;
-  });
+  if (isServer) {
+    const _path = path.join(__dirname, __filename);
+    const file = fs.readFileSync(_path, 'utf-8')
+    console.log(file)
+  }
+  // useTask$(async () => {
+  //   val.value = await getFile();
+  // });
   return (
     <>
       <div style={{ padding: '1rem' }}>{val.value}</div>
