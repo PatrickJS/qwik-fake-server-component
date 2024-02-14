@@ -17,7 +17,7 @@ export default serverComponent$(async () => {
 
   return (
     <div data-component={loc.url.pathname}>
-      <h1>Welcome to Qwik</h1>
+      <h1>About Qwik</h1>
       <button
         onClick$={async (_e, target) => {
           // client router grab updated content from server router
