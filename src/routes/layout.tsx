@@ -1,7 +1,6 @@
 import { component$, Slot, $, useStyles$ } from "@builder.io/qwik";
 import {
   // Link,
-  routeLoader$,
   useLocation,
 } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
@@ -18,12 +17,6 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
     maxAge: 5,
   });
 };
-
-export const useServerTimeLoader = routeLoader$(() => {
-  return {
-    date: new Date().toISOString(),
-  };
-});
 
 export default component$(() => {
   useStyles$(styles);
