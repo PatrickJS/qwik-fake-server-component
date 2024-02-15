@@ -1,4 +1,4 @@
-import { JSXOutput, componentQrl } from "@builder.io/qwik";
+import { JSXOutput, Slot, componentQrl } from "@builder.io/qwik";
 
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
@@ -11,9 +11,17 @@ export function serverComponentQrl(qrl: (props?: any) => Promise<JSXOutput>) {
 export const serverComponent$ = serverComponentQrl;
 
 export const File = serverComponent$(async (props) => {
+  if (!props.path) {
+    return <Slot />;
+  }
   const filename = new URL(import.meta.url).pathname.toString();
   const ROOT_PATH = join(filename, "..", "..", "..", "..");
   let file = await fs.readFile(join(ROOT_PATH, props.path), "utf-8");
 
-  return <pre>{file}</pre>;
+  return (
+    <>
+      <pre>{file}</pre>
+      <Slot />
+    </>
+  );
 });

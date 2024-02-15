@@ -22,6 +22,9 @@ module.exports = {
   },
   plugins: ["@typescript-eslint"],
   rules: {
+    // don't tell Misko I need this for my fake server component
+    "qwik/use-method-usage": "off",
+    //
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-inferrable-types": "off",

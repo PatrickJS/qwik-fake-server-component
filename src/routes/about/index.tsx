@@ -3,6 +3,7 @@ import { useLocation } from "@builder.io/qwik-city";
 
 import { promises as fs } from "node:fs";
 import { File } from "../_components/File";
+import { FileTree } from "../_components/FileTree";
 
 // fake asf server component don't actually use this
 export function serverComponentQrl(qrl: () => Promise<JSXOutput>) {

@@ -55,6 +55,16 @@ export default component$(() => {
 
         <li style="float: left;">
           <a
+            href="/file-explorer/"
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+          >
+            {/file-explorer\/$/.test(loc.url.pathname)
+              ? "[file-explorer]"
+              : "file-explorer"}
+          </a>
+        </li>
+        <li style="float: left;">
+          <a
             href="/server-component/"
             style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
           >
