@@ -2,6 +2,7 @@ import { JSXOutput, component$, useSignal } from "@builder.io/qwik";
 import { server$, useLocation } from "@builder.io/qwik-city";
 
 import { promises as fs } from "node:fs";
+import { File } from "../_components/File";
 
 const serverJsx = server$(async (props: any, scope: any) => {
   const filename = new URL(import.meta.url).pathname;
@@ -14,11 +15,24 @@ const serverJsx = server$(async (props: any, scope: any) => {
           scope.serverVal.value += " world";
         }}
       >
-        update
+        update server signal
       </button>
-      <pre>{Math.random()}</pre>
-      <pre>{scope.serverVal.value}</pre>
-      <pre>{file}</pre>
+      <div>
+        <h2>Random Number</h2>
+        <pre>{Math.random()}</pre>
+      </div>
+      <div>
+        <h2>Server Signal</h2>
+        <pre>{scope.serverVal.value}</pre>
+      </div>
+      <div>
+        <h2>File</h2>
+        <File path="/tmp/qwik.txt" />
+      </div>
+      <div>
+        <h2>File from route</h2>
+        <pre>{file}</pre>
+      </div>
     </div>
   );
 });

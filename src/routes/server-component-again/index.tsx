@@ -14,7 +14,7 @@ const serverJsx = server$(async (props: any, scope: any) => {
           scope.serverVal.value += " world";
         }}
       >
-        update
+        update server signal
       </button>
       <pre>{Math.random()}</pre>
       <pre>{scope.serverVal.value}</pre>
