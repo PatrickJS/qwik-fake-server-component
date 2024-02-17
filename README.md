@@ -1,5 +1,7 @@
 # Qwik Fake Server Component
+
 ```typescript
+// meme repo btw
 export default serverComponent$(async () => {
   const filename = new URL(import.meta.url).pathname;
   let file = await fs.readFile(filename, "utf-8");
