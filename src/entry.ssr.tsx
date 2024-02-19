@@ -18,6 +18,7 @@ import { manifest } from "@qwik-client-manifest";
 import Root from "./root";
 
 export default function (opts: RenderToStreamOptions) {
+
   return renderToStream(<Root />, {
     manifest,
     ...opts,
@@ -26,5 +27,12 @@ export default function (opts: RenderToStreamOptions) {
       lang: "en-us",
       ...opts.containerAttributes,
     },
+    serverData: {
+      ...opts.serverData,
+      SERVER_DATA: {
+        val: "Qwik from Server",
+      },
+    },
   });
+
 }

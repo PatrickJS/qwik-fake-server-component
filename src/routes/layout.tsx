@@ -83,6 +83,14 @@ export default component$(() => {
               : "server-component-again"}
           </a>
         </li>
+        <li style="float: left;">
+          <a
+            href=""
+            style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;"
+          >
+            my.email@example.com
+          </a>
+        </li>
       </ul>
       <main style={{ padding: "1rem" }}>
         <Slot />

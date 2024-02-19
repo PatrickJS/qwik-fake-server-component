@@ -4,6 +4,10 @@ import { server$, useLocation } from "@builder.io/qwik-city";
 import { promises as fs } from "node:fs";
 import { File } from "../_components/File";
 
+const updateVal = server$(() => {
+  return Math.random();
+});
+
 const serverJsx = server$(async (props: any, scope: any) => {
   const filename = new URL(import.meta.url).pathname;
   let file = await fs.readFile(filename, "utf-8");
@@ -12,7 +16,7 @@ const serverJsx = server$(async (props: any, scope: any) => {
       <h1>Server$ component</h1>
       <button
         onClick$={async (_e, target) => {
-          scope.serverVal.value += " world";
+          scope.serverVal.value += await updateVal();
         }}
       >
         update server signal
