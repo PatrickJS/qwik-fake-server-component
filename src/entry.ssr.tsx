@@ -12,19 +12,63 @@
  */
 import {
   renderToStream,
+  // renderToString,
   type RenderToStreamOptions,
 } from "@builder.io/qwik/server";
 import { manifest } from "@qwik-client-manifest";
 import Root from "./root";
+import * as ServerComponents from "./entry.server-component";
+import { QwikCityProvider } from "@builder.io/qwik-city";
 
 export default function (opts: RenderToStreamOptions) {
-  return renderToStream(<Root />, {
+  const url = new URL(opts.serverData?.url || "/");
+  const strCmp = url.searchParams.get("qComponent");
+  const strProps = url.searchParams.get("qProps");
+  // console.log("strCmp", strCmp, Object.keys(ServerComponents));
+  let isRoot = true;
+  let Cmp =
+    Object.keys(ServerComponents).find((k) => k === strCmp) &&
+    (ServerComponents as any)[strCmp as string];
+  if (Cmp) {
+    isRoot = false;
+    let props = {};
+    try {
+      strProps && (props = JSON.parse(strProps));
+    } catch (err) {
+      //
+    }
+    // need context
+    Cmp = (
+      <QwikCityProvider>
+        <Cmp {...props} />
+      </QwikCityProvider>
+    );
+  }
+  const sharedConfig = {};
+  if (isRoot) {
+    return renderToStream(<Root />, {
+      manifest,
+      ...opts,
+      ...sharedConfig,
+      containerAttributes: {
+        lang: "en-us",
+        ...opts.containerAttributes,
+      },
+    });
+  }
+
+  const html = renderToStream(Cmp, {
     manifest,
     ...opts,
     // Use container attributes to set attributes on the html tag.
+    containerTagName: "q-server-component",
+    qwikLoader: {
+      include: "never",
+    },
     containerAttributes: {
-      lang: "en-us",
       ...opts.containerAttributes,
+      id: "qwik-container",
     },
   });
+  return html;
 }

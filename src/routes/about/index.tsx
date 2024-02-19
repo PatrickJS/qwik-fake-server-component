@@ -1,16 +1,9 @@
-import { JSXOutput, componentQrl } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 
 import { promises as fs } from "node:fs";
 import { File } from "../_components/File";
-import { FileTree } from "../_components/FileTree";
-
-// fake asf server component don't actually use this
-export function serverComponentQrl(qrl: () => Promise<JSXOutput>) {
-  // @ts-ignore
-  return componentQrl(qrl);
-}
-export const serverComponent$ = serverComponentQrl;
+// import { FileTree } from "../_components/FileTree";
+import { serverComponent$ } from "~/@fake-server-components/server-components";
 
 export default serverComponent$(async () => {
   const loc = useLocation();

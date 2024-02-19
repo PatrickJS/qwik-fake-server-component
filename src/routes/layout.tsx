@@ -1,12 +1,12 @@
-import { component$, Slot, $, useStyles$ } from "@builder.io/qwik";
+import { Slot, $ } from "@builder.io/qwik";
 import {
   // Link,
   useLocation,
 } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { serverComponent$ } from "~/@fake-server-components/server-components";
 
-import styles from "./styles.css?inline";
-
+// this will be for each serverComponent$
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/
@@ -18,8 +18,7 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
-export default component$(() => {
-  useStyles$(styles);
+export default serverComponent$(async () => {
   const loc = useLocation();
   const onClick = $(async (e: Event, a: HTMLAnchorElement) => {
     const html = await fetch(a.href).then((res) => res.text());
