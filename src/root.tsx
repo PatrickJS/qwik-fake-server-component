@@ -10,6 +10,7 @@ import { serverComponent$ } from "~/@fake-server-components/server-components";
 // import "./global.css";
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
+import Context from "./context";
 
 export default serverComponent$(async () => {
   const filename = new URL(import.meta.url).pathname.toString();
@@ -22,7 +23,7 @@ export default serverComponent$(async () => {
    */
 
   return (
-    <QwikCityProvider>
+    <Context>
       <head>
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
@@ -40,6 +41,6 @@ ${await fs.readFile(join(ROOT_PATH, "./routes/styles.css"), "utf-8")}
       <body lang="en">
         <RouterOutlet />
       </body>
-    </QwikCityProvider>
+    </Context>
   );
 });

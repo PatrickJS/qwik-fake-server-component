@@ -18,7 +18,7 @@ import {
 import { manifest } from "@qwik-client-manifest";
 import Root from "./root";
 import * as ServerComponents from "./entry.server-component";
-import { QwikCityProvider } from "@builder.io/qwik-city";
+import Context from "./context";
 
 export default function (opts: RenderToStreamOptions) {
   const url = new URL(opts.serverData?.url || "/");
@@ -39,9 +39,9 @@ export default function (opts: RenderToStreamOptions) {
     }
     // need context
     Cmp = (
-      <QwikCityProvider>
+      <Context>
         <Cmp {...props} />
-      </QwikCityProvider>
+      </Context>
     );
   }
   const sharedConfig = {};
